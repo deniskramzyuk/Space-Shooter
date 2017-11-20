@@ -15,8 +15,6 @@ public class DestroyByContact : MonoBehaviour
         GetComponent<Rigidbody>().velocity = speed;
         if (other.gameObject.tag.Equals("Player"))
         {
-            GetComponent<Rigidbody>().velocity = speed;
-            GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX & RigidbodyConstraints.FreezePositionY;
             Instantiate(explosion, transform.position, transform.rotation);
             Destroy(other.gameObject);
         }

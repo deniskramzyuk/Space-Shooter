@@ -13,8 +13,6 @@ public class SpawnWaves : MonoBehaviour
 
 
     public GameObject hazard;
-    public Text score;
-    public int ScoreAll = 0;
     public Vector3 spawn;
     public float spawnTime;
     public float startTime;

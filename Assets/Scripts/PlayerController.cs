@@ -64,6 +64,24 @@ public class PlayerController : MonoBehaviour
     }
 
 
+    public float timeHealth;
+    
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag.Equals("health"))
+        {
+            Destroy(other.gameObject);
+            gameObject.GetComponent<Collider>().isTrigger = true;
+            Invoke("dizableTrigger", timeHealth);
+        }
+    }
+    void dizableTrigger()
+    {
+        gameObject.GetComponent<Collider>().isTrigger = false;
+    }
+
+
+
 
     [System.Serializable]
     public class Boundary
