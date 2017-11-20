@@ -14,7 +14,7 @@ public class DestroyByShot : MonoBehaviour
             Instantiate(explosion, transform.position, transform.rotation);
             Destroy(gameObject);
             Destroy(other.gameObject);
-            //SpawnWaves.Instanse.AddScore();
-        }   
+        }
+       
     }
 }

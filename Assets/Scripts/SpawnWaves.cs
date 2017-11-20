@@ -36,10 +36,4 @@ public class SpawnWaves : MonoBehaviour
             yield return new WaitForSeconds(waveTime);
         }
     }
-
-    public void AddScore()
-    {
-        ScoreAll += 10;
-        score.text = ScoreAll.ToString();
-    }
 }

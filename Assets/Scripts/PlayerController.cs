@@ -36,16 +36,30 @@ public class PlayerController : MonoBehaviour
     public Transform shotSpawn;
     public float fireRate;
     private float fireTime;
+    public bool multishot = false;
 
    
     void Update()
     {
-        
-        if ((Input.GetKey(KeyCode.Space) || Input.GetMouseButton(0)) && Time.time >= fireTime)
+        if (multishot)
         {
-            Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
-            fireTime = Time.time + fireRate;
-            GetComponent<AudioSource>().Play();
+            if ((Input.GetKey(KeyCode.Space) || Input.GetMouseButton(0)) && Time.time >= fireTime)
+            {
+                Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
+                Instantiate(shot, shotSpawn.position, Quaternion.Euler(shotSpawn.rotation.x, 45, shotSpawn.rotation.z));
+                Instantiate(shot, shotSpawn.position, Quaternion.Euler(shotSpawn.rotation.x, -45, shotSpawn.rotation.z));
+                fireTime = Time.time + fireRate;
+                GetComponent<AudioSource>().Play();
+            }
+        }
+        else
+        {
+            if ((Input.GetKey(KeyCode.Space) || Input.GetMouseButton(0)) && Time.time >= fireTime)
+            {
+                Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
+                fireTime = Time.time + fireRate;
+                GetComponent<AudioSource>().Play();
+            }
         }
     }
 
