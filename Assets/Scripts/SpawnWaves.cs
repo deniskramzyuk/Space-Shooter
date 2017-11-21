@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class SpawnWaves : MonoBehaviour
 {
-
     private void Start()
     {
         StartCoroutine(SpawnWave());
@@ -28,7 +27,8 @@ public class SpawnWaves : MonoBehaviour
             {
                 Vector3 spawnPosition = new Vector3(Random.Range(-spawn.x, spawn.x), spawn.y, spawn.z);
                 Quaternion spawnRotation = new Quaternion();
-                Instantiate(hazard, spawnPosition, spawnRotation);
+                Instantiate(hazard, spawnPosition, spawnRotation).GetComponent<DestroyByShot>().setGameController(gameObject);
+
                 yield return new WaitForSeconds(spawnTime);
             }
             yield return new WaitForSeconds(waveTime);

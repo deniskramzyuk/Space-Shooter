@@ -12,6 +12,7 @@ public class AsteroidMove : MonoBehaviour
         Vector3 move = new Vector3();
         move = transform.forward * speed;
         GetComponent<Rigidbody>().velocity = move;
-        GetComponent<DestroyByContact>().speed = move;
+        GetComponent<DestroyByShot>().speed = move;
     }
 }
+

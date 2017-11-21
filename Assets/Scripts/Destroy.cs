@@ -2,21 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DestroyByContact : MonoBehaviour
-{
+public class Destroy : MonoBehaviour {
 
+    public GameObject gameController;
     public GameObject explosion;
-    [HideInInspector]
-    public Vector3 speed;
 
 
     public void OnCollisionEnter(Collision other)
     {
-        GetComponent<Rigidbody>().velocity = speed;
-        if (other.gameObject.tag.Equals("Player"))
+        if (other.gameObject.tag.Equals("asteroid"))
         {
             Instantiate(explosion, transform.position, transform.rotation);
-            Destroy(other.gameObject);
+            Destroy(gameObject);
+            gameController.GetComponent<GameOver>().Death();
         }
     }
 }
