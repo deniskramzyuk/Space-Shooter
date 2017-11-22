@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HealthMove : MonoBehaviour
+public class BonusMove : MonoBehaviour
 {
 
     public float speed;

@@ -18,7 +18,7 @@ public class GameOver : MonoBehaviour
     }
 
 
-    
+
 
     public void Death()
     {
@@ -27,6 +27,6 @@ public class GameOver : MonoBehaviour
         isGameOver = true;
     }
 
-    
+
 
 }

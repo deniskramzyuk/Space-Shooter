@@ -22,11 +22,7 @@ public class DestroyByShot : MonoBehaviour
         {
             GameController.GetComponent<Score>().AddScore(scoreByDestr);
             Instantiate(explosion, transform.position, transform.rotation);
-            int rand = Random.Range(1, 100);
-            if (rand >= 1 & rand <= 5)
-            {
-                Instantiate(health, transform.position, new Quaternion());
-            }
+            GameController.GetComponent<Bonus>().addBonus(gameObject);
             Destroy(gameObject);
             Destroy(other.gameObject);
 

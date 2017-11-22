@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AstroidRotation : MonoBehaviour
+public class Rotation : MonoBehaviour
 {
     public float speedRotation;
     void Start()
