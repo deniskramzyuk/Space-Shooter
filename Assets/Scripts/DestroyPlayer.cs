@@ -25,21 +25,32 @@ public class DestroyPlayer : MonoBehaviour
     {
         if (other.gameObject.tag.Equals("asteroid"))
         {
-            removeLife();
-            if (lifes != 0)
+            if (transform.GetChild(2).gameObject.activeSelf)
             {
-                gameObject.GetComponent<Collider>().enabled = false;
-                Instantiate(explosion, transform.position, transform.rotation);
-                gameObject.GetComponent<Rigidbody>().position = new Vector3();
-                //StartCoroutine(Reborn());
-                isReborn = true;
-                GetComponent<PlayerController>().invokeInableCollider(3f);
+                GetComponent<PlayerController>().GameController.GetComponent<Score>().AddScore(other.gameObject.GetComponent<DestroyByShot>().scoreByDestr);
+                Instantiate(other.gameObject.GetComponent<DestroyByShot>().explosion, other.transform.position, other.transform.rotation);
+                Destroy(other.gameObject);
             }
             else
             {
-                Instantiate(explosion, transform.position, transform.rotation);
-                Destroy(gameObject);
-                gameController.GetComponent<GameOver>().Death();
+                removeLife();
+                if (lifes != 0)
+                {
+                    gameObject.GetComponent<Collider>().enabled = false;
+                    Instantiate(explosion, transform.position, transform.rotation);
+                    gameObject.GetComponent<Rigidbody>().position = new Vector3();
+                    //StartCoroutine(Reborn());
+                    isReborn = true;
+                    GetComponent<PlayerController>().fireRate = 0.5f;
+                    GetComponent<PlayerController>().multishot = false;
+                    GetComponent<PlayerController>().invokeEnableCollider(3f);
+                }
+                else
+                {
+                    Instantiate(explosion, transform.position, transform.rotation);
+                    Destroy(gameObject);
+                    gameController.GetComponent<GameOver>().Death();
+                }
             }
         }
     }

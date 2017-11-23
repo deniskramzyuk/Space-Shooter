@@ -12,12 +12,14 @@ public class PlayerController : MonoBehaviour
     float timeHealth = 3;
     public GameObject shot;
     public Transform shotSpawn;
-    public float fireRate;
+    [HideInInspector]
+    public float fireRate = 0.5f;
     private float fireTime;
     public bool multishot = false;
-
-
-    
+    public GameObject GameController;
+    [HideInInspector]
+    public float timeShield = 5f;
+    private bool isShield = false;
     [System.Serializable]
     public class Boundary
     {
@@ -69,6 +71,11 @@ public class PlayerController : MonoBehaviour
                 GetComponent<AudioSource>().Play();
             }
         }
+
+        if (isShield)
+        {
+            invokeDisablseShield();
+        }
     }
 
 
@@ -83,29 +90,68 @@ public class PlayerController : MonoBehaviour
             Invoke("disableTrigger", timeHealth);
             GetComponent<DestroyPlayer>().addLife();
         }
-        /*if (other.gameObject.tag.Equals("score"))
+        if (other.gameObject.tag.Equals("score"))
         {
             Destroy(other.gameObject);
+            GameController.GetComponent<Score>().AddScore(GameController.GetComponent<Bonus>().scoreValue);
 
-        }*/
+        }
+        if (other.gameObject.tag.Equals("lvlup"))
+        {
+            Destroy(other.gameObject);
+            if (fireRate > 0.101f)
+                fireRate -= 0.1f;
+        }
+        if (other.gameObject.tag.Equals("multishot"))
+        {
+            Destroy(other.gameObject);
+            multishot = true;
+        }
+        if (other.gameObject.tag.Equals("shield"))
+        {
+            Destroy(other.gameObject);
+            enableShield();
+        }
     }
 
 
-    void inableCollider()
+    void enableCollider()
     {
         gameObject.GetComponent<Collider>().enabled = true;
     }
 
 
-    public void invokeInableCollider(float time)
+    public void invokeEnableCollider(float time)
     {
-        Invoke("inableCollider", time);
+        Invoke("enableCollider", time);
     }
 
 
 
     void disableTrigger()
     {
-        gameObject.GetComponent<Collider>().enabled = true;
+        gameObject.GetComponent<Collider>().isTrigger = false;
+    }
+
+    void enableShield()
+    {
+        timeShield = 5f;
+        transform.GetChild(2).gameObject.SetActive(true);
+        isShield = true;
+    }
+
+    void disableShield()
+    {
+        transform.GetChild(2).gameObject.SetActive(false);
+    }
+
+    public void invokeDisablseShield()
+    {
+        timeShield -= Time.deltaTime;
+        if (timeShield <= 0)
+        {
+            disableShield();
+            isShield = false;
+        }
     }
 }

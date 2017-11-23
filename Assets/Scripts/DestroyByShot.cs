@@ -31,11 +31,13 @@ public class DestroyByShot : MonoBehaviour
     }
 
 
-   
+
     public void OnCollisionEnter(Collision other)
     {
-
-        GetComponent<Rigidbody>().velocity =speed;
+        if (other.gameObject.tag.Equals("Player"))
+            GetComponent<Rigidbody>().velocity = speed;
+        //if (other.gameObject.tag.Equals("shield"))
+        //    Destroy(gameObject);
     }
 
 
