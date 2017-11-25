@@ -25,7 +25,6 @@ public class DestroyByShot : MonoBehaviour
             GameController.GetComponent<Bonus>().addBonus(gameObject);
             Destroy(gameObject);
             Destroy(other.gameObject);
-
         }
 
     }
@@ -36,8 +35,6 @@ public class DestroyByShot : MonoBehaviour
     {
         if (other.gameObject.tag.Equals("Player"))
             GetComponent<Rigidbody>().velocity = speed;
-        //if (other.gameObject.tag.Equals("shield"))
-        //    Destroy(gameObject);
     }
 
 

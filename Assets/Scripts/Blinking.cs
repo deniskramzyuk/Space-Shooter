@@ -6,7 +6,6 @@ public class Blinking : MonoBehaviour
 {
 
     private float time = 5f;
-    private float timeBlink;
     private float colorA;
     private bool isColor=true;
 
@@ -24,7 +23,6 @@ public class Blinking : MonoBehaviour
 
     void blinkingShield()
     {
-        timeBlink = time;
         if (time > 0)
         {
             time -= Time.deltaTime;
