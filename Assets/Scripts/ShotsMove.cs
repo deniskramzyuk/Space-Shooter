@@ -8,6 +8,7 @@ public class ShotsMove : MonoBehaviour {
 
     void Start()
     { 
-        GetComponent<Rigidbody>().velocity = transform.forward * speed;       
+        GetComponent<Rigidbody>().velocity = transform.forward * speed;
     }
 }
+

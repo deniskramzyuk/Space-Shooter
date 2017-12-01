@@ -15,7 +15,8 @@ public class GetButtonMy : MonoBehaviour
     public GameObject settings;
     public GameObject selectLevel;
     private bool musicOn = true;
-
+    private bool difficultMode = false;
+    public GameObject backFromGame;
 
     public void buttonSound()
     {
@@ -29,12 +30,13 @@ public class GetButtonMy : MonoBehaviour
 
     public void pressButtonNewGame()
     {
-        gameObject.GetComponent<SpawnWaves>().enabled = true;
+        GetComponent<SpawnWaves>().enabled = true;
         player.gameObject.SetActive(true);
-        boundary.gameObject.SetActive(true);
         texts.gameObject.SetActive(true);
-        mainMenu.gameObject.SetActive(false);
+        selectLevel.gameObject.SetActive(false);
         GetComponent<AudioSource>().enabled = true;
+        mainMenu.SetActive(false);
+        backFromGame.SetActive(true);
     }
 
     public void pressButtonExit()
@@ -80,4 +82,43 @@ public class GetButtonMy : MonoBehaviour
         mainMenu.SetActive(false);
         selectLevel.SetActive(true);
     }
+
+    public void onOffDifficultMode()
+    {
+        if (!difficultMode)
+        {
+            settings.transform.GetChild(0).gameObject.transform.GetChild(1).gameObject.transform.GetChild(2).gameObject.SetActive(true);
+            settings.transform.GetChild(0).gameObject.transform.GetChild(1).gameObject.transform.GetChild(1).gameObject.SetActive(false);
+            difficultMode = true;
+            player.GetComponent<DestroyPlayer>().startLifes = 1;
+            player.GetComponent<DestroyPlayer>().maxLifes = 1;
+            GetComponent<Lifes>().updLifesText();
+        }
+        else
+        {
+            settings.transform.GetChild(0).gameObject.transform.GetChild(1).gameObject.transform.GetChild(1).gameObject.SetActive(true);
+            settings.transform.GetChild(0).gameObject.transform.GetChild(1).gameObject.transform.GetChild(2).gameObject.SetActive(false);
+            difficultMode = false;
+            player.GetComponent<DestroyPlayer>().startLifes = 3;
+            player.GetComponent<DestroyPlayer>().maxLifes = 3;
+            GetComponent<Lifes>().updLifesText();
+        }
+    }
+
+    public void LevelOne()
+    {
+        GetComponent<SpawnWaves>().isEndless = false;
+        GetComponent<SpawnWaves>().enabled = true;
+        player.gameObject.SetActive(true);
+        texts.gameObject.SetActive(true);
+        selectLevel.gameObject.SetActive(false);
+        GetComponent<AudioSource>().enabled = true;
+        backFromGame.SetActive(true);
+    }
+
+    public void BackFromGame()
+    {
+        SceneManager.LoadScene(0);
+    }
+
 }

@@ -53,7 +53,8 @@ public class PlayerController : MonoBehaviour
     {
         if (multishot)
         {
-            if ((Input.GetKey(KeyCode.Space) || Input.GetMouseButton(0)) && Time.time >= fireTime)
+            //if ((Input.GetKey(KeyCode.Space) || Input.GetMouseButton(0)) && Time.time >= fireTime)
+            if (Time.time >= fireTime)
             {
                 Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
                 Instantiate(shot, shotSpawn.position, Quaternion.Euler(shotSpawn.rotation.x, 45, shotSpawn.rotation.z));
@@ -64,7 +65,8 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            if ((Input.GetKey(KeyCode.Space) || Input.GetMouseButton(0)) && Time.time >= fireTime)
+            //if ((Input.GetKey(KeyCode.Space) || Input.GetMouseButton(0)) && Time.time >= fireTime)
+            if (Time.time >= fireTime)
             {
                 Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
                 fireTime = Time.time + fireRate;

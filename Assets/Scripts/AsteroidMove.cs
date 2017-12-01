@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class AsteroidMove : MonoBehaviour
 {
-
     public float speed;
 
     void Start()
@@ -14,5 +13,16 @@ public class AsteroidMove : MonoBehaviour
         GetComponent<Rigidbody>().velocity = move;
         GetComponent<DestroyByShot>().speed = move;
     }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+            if (gameObject.GetComponent<DestroyByShot>().GameController.GetComponent<GameOver>().isGameOver)
+            {
+                Destroy(gameObject);
+            }
+            
+    }
+
 }
 

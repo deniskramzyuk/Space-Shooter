@@ -25,10 +25,10 @@ public class Bonus : MonoBehaviour
     public void addBonus(GameObject destrObject)
     {
         GameObject bonus = null;
-        int rand = Random.Range(1, 100);
-        if (rand >= 1 & rand <= 10)
+        int rand = Random.Range(1, 101);
+        if (rand >= 1 & rand <= 21)
         {
-            int rand2 = Random.Range(1, 100);
+            int rand2 = Random.Range(1, 101);
             if (rand2 >= 1 & rand2 <= 3)
                 bonus = bonuses.health;
             if (rand2 >= 4 & rand2 <= 9)
@@ -50,7 +50,7 @@ public class Bonus : MonoBehaviour
                 bonus = bonuses.score10;
                 scoreValue = 10;
             }
-            if (rand2 >= 91 & rand2 <= 100)
+            if (rand2 >= 91 & rand2 <= 101)
                 bonus = bonuses.shield;
             Instantiate(bonus, destrObject.GetComponent<Rigidbody>().position, new Quaternion());
         }

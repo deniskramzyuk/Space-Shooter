@@ -21,4 +21,11 @@ public class Score : MonoBehaviour
             player.GetComponent<DestroyPlayer>().addLife();
         }
     }
+
+    public void ResetScore()
+    {
+        score = 0;
+        scoreLife = 0;
+        scoreNumber.text = "0";
+    }
 }

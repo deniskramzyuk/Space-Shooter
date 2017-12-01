@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class DestroyByShot : MonoBehaviour
 {
     public GameObject explosion;
-    public GameObject health;
     public int scoreByDestr;
 
     [HideInInspector]
@@ -14,7 +13,6 @@ public class DestroyByShot : MonoBehaviour
 
     [HideInInspector]
     public Vector3 speed;
-
 
     void OnTriggerEnter(Collider other)
     {

@@ -8,10 +8,12 @@ public class DestroyPlayer : MonoBehaviour
 
     public GameObject gameController;
     public GameObject explosion;
-    public int lifes = 3;
+    public int startLifes = 3;
+    private int lifes;
+    public int maxLifes = 3;
     public Text lifesText;
-    private float timer=3f;
-    private bool isReborn=false;
+    private float timer = 3f;
+    private bool isReborn = false;
 
     private void Update()
     {
@@ -19,27 +21,38 @@ public class DestroyPlayer : MonoBehaviour
             Reborn();
     }
 
-
-
-    public void OnCollisionEnter(Collision other)
+    private void Start()
     {
-        if (other.gameObject.tag.Equals("asteroid"))
+        lifes = startLifes;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag.Equals("asteroid") || other.gameObject.tag.Equals("enemy") || other.gameObject.tag.Equals("shot enemy") || other.gameObject.tag.Equals("boss"))
         {
-            if (transform.GetChild(2).gameObject.activeSelf)
+            if (transform.GetChild(2).gameObject.activeSelf && (other.gameObject.tag.Equals("asteroid") || other.gameObject.tag.Equals("enemy") || other.gameObject.tag.Equals("shot enemy")))
             {
-                GetComponent<PlayerController>().GameController.GetComponent<Score>().AddScore(other.gameObject.GetComponent<DestroyByShot>().scoreByDestr);
-                Instantiate(other.gameObject.GetComponent<DestroyByShot>().explosion, other.transform.position, other.transform.rotation);
-                Destroy(other.gameObject);
+                if (other.gameObject.tag.Equals("shot enemy"))
+                {
+                    Destroy(other.gameObject);
+                }
+                else
+                {
+                    GetComponent<PlayerController>().GameController.GetComponent<Score>().AddScore(other.gameObject.GetComponent<DestroyByShot>().scoreByDestr);
+                    Instantiate(other.gameObject.GetComponent<DestroyByShot>().explosion, other.transform.position, other.transform.rotation);
+                    Destroy(other.gameObject);
+                }
             }
             else
             {
                 removeLife();
                 if (lifes != 0)
                 {
+                    if (other.gameObject.tag.Equals("shot enemy"))
+                        Destroy(other.gameObject);
                     gameObject.GetComponent<Collider>().enabled = false;
                     Instantiate(explosion, transform.position, transform.rotation);
                     gameObject.GetComponent<Rigidbody>().position = new Vector3();
-                    //StartCoroutine(Reborn());
                     isReborn = true;
                     GetComponent<PlayerController>().fireRate = 0.5f;
                     GetComponent<PlayerController>().multishot = false;
@@ -48,19 +61,12 @@ public class DestroyPlayer : MonoBehaviour
                 else
                 {
                     Instantiate(explosion, transform.position, transform.rotation);
-                    Destroy(gameObject);
+                    gameObject.SetActive(false);
                     gameController.GetComponent<GameOver>().Death();
                 }
             }
         }
     }
-    /*IEnumerator Reborn()
-    {
-        GetComponent<Animator>().SetBool("isReborn", true);
-        yield return new WaitForSeconds(3f);
-        GetComponent<Animator>().SetBool("isReborn", false);
-    }*/
-
 
     public void removeLife()
     {
@@ -70,7 +76,7 @@ public class DestroyPlayer : MonoBehaviour
 
     public void addLife()
     {
-        if (lifes < 3)
+        if (lifes < maxLifes)
         {
             lifes++;
             lifesText.text = "x " + lifes.ToString();
@@ -79,10 +85,10 @@ public class DestroyPlayer : MonoBehaviour
 
     void Reborn()
     {
-        if (timer>0)
+        if (timer > 0)
         {
             timer -= Time.deltaTime;
-            int bun = ((int)(timer / (1f / 6f)))%2;
+            int bun = ((int)(timer / (1f / 6f))) % 2;
             if (bun == 1)
             {
                 if (GetComponent<MeshRenderer>().enabled)
@@ -107,5 +113,11 @@ public class DestroyPlayer : MonoBehaviour
             GetComponent<MeshRenderer>().enabled = true;
             transform.GetChild(0).gameObject.SetActive(true);
         }
+    }
+
+
+    public void resetLifes()
+    {
+        lifes = startLifes;
     }
 }
